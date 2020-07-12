@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>8th Wall Web: Flyer</title>
+
+  <script src="//cdn.8thwall.com/web/aframe/8frame-0.9.0.min.js"></script>
+
+  <!-- XR Extras - provides utilities like load screen, almost there, and error handling.
+         See github.com/8thwall/web/xrextras -->
+  <script src="//cdn.8thwall.com/web/xrextras/xrextras.js"></script>
+
+  <!-- 8thWall Web - Replace the app key here with your own app key -->
+  <script src="//apps.8thwall.com/xrweb?appKey=oR3XNxUmcZSYkyG9Ytlbsbw5bWsXhFXUIPlAlthSjY5Sf35IlR1SYDZIkVztdWLTx2F94i"></script>
+  <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script>
+    window.onload = function () {
+      document.querySelector(".say-hi-button",)
+        .addEventListener("click", function () {
+          // here you can change also a-scene or a-entity properties, like
+          // changing your 3D model source, size, position and so on
+          // or you can just open links, trigger actions...
+         // alert("Hi there!");
+        // if(document.querySelector("#jelly-glb").object3D.visible == true){
+        //   console.log("find the 3d jelly glb object!!");
+        // }
+         
+        // if(document.querySelector("a-entity").object3D.visible == true){
+        //   console.log("find the a-entity object!!");
+        // }
+          //alert("button working!!"+this.toggle);
+          if(!this.toggle){
+            document.querySelector("#underwater").play();
+            this.toggle = true;
+          }
+          else{
+            document.querySelector("#underwater").pause();
+            this.toggle = false;
+          }
+           
+           
+           // document.querySelector("#underwater").pause();
+          
+          
+        });
+        
+         document.querySelector(".moreinfo")
+        .addEventListener("click", function () {
+
+          //alert("moreinfo!!");
+          window.open("https://eggxlinkarts.glitch.me");
+        });
+    
+    };
+    
+
+   
+</script>
+
+ <style>
+    .buttons {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .say-hi-button {
+      font-size:35px;
+      padding: 0.15em;
+      border-radius: 4px;
+      border: none;
+      background: none;
+      color: white;
+      width: 4em;
+      height: 2em;
+      margin-left:270px;
+    }
+    
+    .moreinfo{
+      font-size:35px;
+      padding: 0.15em;
+      border-radius: 4px;
+      border: none;
+      background: none;
+      color: white;
+      width: 4em;
+      height: 2em;
+      margin-left:-10px;
+ 
+    }
+    
+  </style>
+  
+  
+  
+  <div class="buttons">
+      <button class="say-hi-button"><i class="fa fa-music"></i></button>
+      <button class="moreinfo"><i class="fa fa-home"></i></button>
+  </div>
+
+</head>
+
+<body>
+
+  <a-scene
+  xrextras-gesture-detector
+  xrextras-almost-there
+  xrextras-loading
+  xrextras-runtime-error
+  xrweb="disableWorldTracking: true">
+
+  <a-assets>
+    <!-- Credit to Poly by Google for the model: https://poly.google.com/view/dA5osnS0Rzj -->
+    <a-asset-item id="flower" src="FlowerSmalleTwo.gltf"></a-asset-item>
+    <a-asset-item id="bubbleman" src="textureSmallerBubble.glb"></a-asset-item>
+    <a-asset-item id="jelly-glb" src="runningmanok.glb"></a-asset-item>
+    
+    <img id="jelly-thumb" src="assets/line.jpg">
+    <audio id="underwater" src="BGM.mp3" preload="auto"></audio>
+  </a-assets>
+  
+
+
+  <a-camera
+    position="0 4 10"
+    raycaster="objects: .cantap"
+    cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+  <a-light type="ambient" intensity="1"></a-light>
+
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+  <a-entity
+    xrextras-named-image-target="name: video-target"
+    xrextras-play-video="video: #jelly-video; thumb: #jelly-thumb; canstop: true"
+    geometry="primitive: plane; height: 1; width: 0.79; autoplay: true loop:true">
+  </a-entity>
+  
+  
+  
+    <!-- second01 point painting -->
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+  <a-entity xrextras-named-image-target="name: point01">
+    <!-- Add a child entity that can be rotated independently of the image target. -->
+    <a-entity gltf-model="#bubbleman" rotation="0 -90 -90" scale="0.0007 0.0007 0.0007" position="-0.01 -0.05 0" 
+    animation-mixer="autoplay: true; loop: true" light="type: ambient; color: #EEE; intensity: 2" >
+   
+    </a-entity>
+    
+     <!-- backgrondmusic for all
+     sound="src: #underwater; autoplay:true" 
+     <a-cylinder color="0088ff" height="2" scale="0.5 0.5 0.5" positon="-2 2.3 0" sound="src: #underwater; on:click"></a-cylinder>
+    <a-entity sound="src: #underwater; autoplay:true"></a-entity> -->
+  </a-entity>
+  
+  
+  <!-- first02 line painting -->
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+  <a-entity xrextras-named-image-target="name: line">
+    <!-- Add a child entity that can be rotated independently of the image target. -->
+    <a-entity  gltf-model="#jelly-glb" rotation="90 0 0" scale="0.0125 0.0125 0.0125" position="-0.165 0.55 0" animation-mixer=" autoplay:true;
+    loop: true"></a-entity>
+  </a-entity>
+  
+  
+
+  
+
+  <!-- third03 flower painting -->
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+  <a-entity xrextras-named-image-target="name: flower">
+    <!-- Add a child entity that can be rotated independently of the image target. -->
+
+    <a-entity  gltf-model="#flower" rotation="0 90 70" scale="0.1 0.1 0.1" animation-mixer=" autoplay:true;
+    loop: true">
+
+    </a-entity>
+   
+     
+  </a-entity>
+
+</a-scene>
+</html>
